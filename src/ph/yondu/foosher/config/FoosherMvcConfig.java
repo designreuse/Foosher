@@ -69,6 +69,12 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	    dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/test");
 	    dataSource.setUser("root");
 	    dataSource.setPassword("root");
+	    
+	    dataSource.setAcquireIncrement(1);
+	    dataSource.setMinPoolSize(3);
+	    dataSource.setMaxPoolSize(20);
+	    dataSource.setIdleConnectionTestPeriod(300);
+	    dataSource.setMaxIdleTimeExcessConnections(240);
 		return dataSource;
 	}
 	
