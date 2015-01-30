@@ -13,16 +13,16 @@
     <title>Fooher Amin</title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="<c:url value="css/bootstrap.min.css" />" rel="stylesheet">
+    <link href="<c:url value="admin/css/bootstrap.min.css" />" rel="stylesheet">
 
     <!-- Custom CSS -->
-    <link href="<c:url value="css/sb-admin.css"/>" rel="stylesheet">
+    <link href="<c:url value="admin/css/sb-admin.css"/>" rel="stylesheet">
 
     <!-- Morris Charts CSS -->
-    <link href="<c:url value="css/plugins/morris.css" />" rel="stylesheet">
+    <link href="<c:url value="admin/css/plugins/morris.css" />" rel="stylesheet">
 
     <!-- Custom Fonts -->
-    <link href="<c:url value="font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
+    <link href="<c:url value="admin/font-awesome/css/font-awesome.min.css" />" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -475,15 +475,15 @@
     <!-- /#wrapper -->
 
     <!-- jQuery -->
-    <script src="<c:url value="js/jquery.js"/>"></script>
+    <script src="<c:url value="admin/js/jquery.js"/>"></script>
 
     <!-- Bootstrap Core JavaScript -->
-    <script src="<c:url value="js/bootstrap.min.js"/>"></script>
+    <script src="<c:url value="admin/js/bootstrap.min.js"/>"></script>
 
     <!-- Morris Charts JavaScript -->
-    <script src="<c:url value="js/plugins/morris/raphael.min.js"/>"></script>
-    <script src="<c:url value="js/plugins/morris/morris.min.js"/>"></script>
-    <script src="<c:url value="js/plugins/morris/morris-data.js"/>"></script>
+    <script src="<c:url value="admin/js/plugins/morris/raphael.min.js"/>"></script>
+    <script src="<c:url value="admin/js/plugins/morris/morris.min.js"/>"></script>
+    <script src="<c:url value="admin/js/plugins/morris/morris-data.js"/>"></script>
 
 </body>
 
