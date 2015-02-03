@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -30,6 +31,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  *
  */
 @EnableWebMvc
+@EnableAspectJAutoProxy
 @EnableTransactionManagement
 @Configuration
 @ComponentScan(basePackages = "ph.yondu.foosher")
@@ -40,14 +42,6 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
         configurer.enable();
     }
 
-//	@Bean(name = "viewResolver")
-//	public InternalResourceViewResolver getViewResolver() {
-//	    InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-//	    viewResolver.setPrefix("/WEB-INF/views/");
-//	    viewResolver.setSuffix(".jsp");
-//	    return viewResolver;
-//	}
-	
 	@Bean(name="viewResolver")
 	public UrlBasedViewResolver getViewResolver() {
 		UrlBasedViewResolver viewResolver = new UrlBasedViewResolver();
@@ -58,7 +52,7 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="tilesConfigurer")
 	public TilesConfigurer getTilesConfigurer(){
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
-		tilesConfigurer.setDefinitions("/WEB-INF/tiles/tiles-def.xml");
+		tilesConfigurer.setDefinitions("/WEB-INF/tiles-def.xml");
 		return tilesConfigurer;
 	}
 	

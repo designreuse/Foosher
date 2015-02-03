@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE tiles-definitions PUBLIC  
+   "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+  
+<tiles-definitions>  
+  
+   <definition name="dashboardTemplate" template="/WEB-INF/tiles/dashboard.jsp">  
+      <put-attribute name="title"  value="Dashboard"/>  
+      <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>  
+      <put-attribute name="nav"   value="/WEB-INF/tiles/nav.jsp"/>  
+      <put-attribute name="body"   value="CONTENT GOES HERE"/>
+   </definition>  
+   
+   <definition name="categoryForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Add Category"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/inventory/category/form.jsp" />
+   </definition>
+   
+   <definition name="userForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Add User"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/user/form.jsp" />
+   </definition>
+   
+   <definition name="roleAddForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Add Role"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleAddForm.jsp" />
+   </definition>
+   <definition name="roleEditForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Add Role"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleEditForm.jsp" />
+   </definition>
+   
+    <definition name="roleList" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Role"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleList.jsp" />
+   </definition>
+    
+</tiles-definitions>

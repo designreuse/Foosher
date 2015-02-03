@@ -1,7 +1,7 @@
 /**
  * 
  */
-package ph.yondu.foosher.generic.domains;
+package ph.yondu.foosher.basic.domains;
 
 import java.util.Date;
 
@@ -15,13 +15,11 @@ import javax.persistence.TemporalType;
  *
  */
 @MappedSuperclass
-public class BaseDomain {
+public abstract class Logged {
 	
 	protected Date createdAt;
 	protected Date updatedAt;
 	protected boolean enabled;
-	
-	
 	
 	@Column
 	public boolean isEnabled() {
@@ -31,7 +29,7 @@ public class BaseDomain {
 		this.enabled = enabled;
 	}
 	
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
 	}
