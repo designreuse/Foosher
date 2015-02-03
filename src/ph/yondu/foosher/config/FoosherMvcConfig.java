@@ -9,10 +9,12 @@ import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.context.annotation.Import;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -35,7 +37,22 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableTransactionManagement
 @Configuration
 @ComponentScan(basePackages = "ph.yondu.foosher")
+@Import(FoosherPropertiesConfig.class)
 public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
+	
+	@Value("${db.url}") private String dbUrl;
+	@Value("${db.user}") private String dbUser;
+	@Value("${db.password}") private String dbPass;
+	@Value("${db.jdbc.driver}") private String dbJdbcDriver;
+	@Value("${db.acquire.increment}") private Integer dbAcquireIncrement;
+	@Value("${db.min.pool.size}") private Integer dbMinPoolSize;
+	@Value("${db.max.pool.size}") private Integer dbMaxPoolSize;
+	@Value("${db.idle.connection.test.period}") private Integer dbIdleConnectionTestPeriod;
+	@Value("${db.max.idle.time.excess.connections}") private Integer dbMaxIdleTimeExcessConnections;
+	@Value("${db.package.to.scan}") private String dbPackageToScan;
+	@Value("${db.show.sql}") private String dbShowSql;
+	@Value("${db.hbm2ddl.auto}") private String dbHbm2DdlAuto;
+	@Value("${db.sql.dialect}") private String dbDialect;
 	
 	@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -59,16 +76,16 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="dataSource")
 	public DataSource getDataSource() throws PropertyVetoException{
 		ComboPooledDataSource dataSource = new ComboPooledDataSource();
-		dataSource.setDriverClass("com.mysql.jdbc.Driver");
-	    dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/test");
-	    dataSource.setUser("root");
-	    dataSource.setPassword("root");
+		dataSource.setDriverClass(dbJdbcDriver);
+	    dataSource.setJdbcUrl(dbUrl);
+	    dataSource.setUser(dbUser);
+	    dataSource.setPassword(dbPass);
 	    
-	    dataSource.setAcquireIncrement(1);
-	    dataSource.setMinPoolSize(3);
-	    dataSource.setMaxPoolSize(20);
-	    dataSource.setIdleConnectionTestPeriod(300);
-	    dataSource.setMaxIdleTimeExcessConnections(240);
+	    dataSource.setAcquireIncrement(dbAcquireIncrement);
+	    dataSource.setMinPoolSize(dbMinPoolSize);
+	    dataSource.setMaxPoolSize(dbMaxPoolSize);
+	    dataSource.setIdleConnectionTestPeriod(dbIdleConnectionTestPeriod);
+	    dataSource.setMaxIdleTimeExcessConnections(dbMaxIdleTimeExcessConnections);
 		return dataSource;
 	}
 	
@@ -76,10 +93,10 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="sessionFactory")
 	public SessionFactory getSessionFactory(DataSource dataSource){
 		LocalSessionFactoryBuilder sessionBuilder = new LocalSessionFactoryBuilder(dataSource);
-		sessionBuilder.scanPackages("ph.yondu.foosher");
-		sessionBuilder.setProperty("hibernate.show_sql", "true");
-		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", "create");
-		sessionBuilder.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQLDialect");
+		sessionBuilder.scanPackages(dbPackageToScan);
+		sessionBuilder.setProperty("hibernate.show_sql", dbShowSql);
+		sessionBuilder.setProperty("hibernate.hbm2ddl.auto", dbHbm2DdlAuto);
+		sessionBuilder.setProperty("hibernate.dialect", dbDialect);
 		return sessionBuilder.buildSessionFactory();
 	}
 	
