@@ -16,7 +16,7 @@ public class IndexController {
 	
     @RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(){
-		return "dashboardTemplate"; //TODO: temporary lang ito
+		return "publicTemplate"; //TODO: temporary lang ito
 	}
 	
 }

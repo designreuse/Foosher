@@ -6,42 +6,42 @@
   
 <tiles-definitions>  
   
-   <definition name="dashboardTemplate" template="/WEB-INF/tiles/dashboard.jsp">  
+   <definition name="adminTemplate" template="/WEB-INF/tiles/admin/template.jsp">  
       <put-attribute name="title"  value="Dashboard"/>  
-      <put-attribute name="header" value="/WEB-INF/tiles/header.jsp"/>  
-      <put-attribute name="nav"   value="/WEB-INF/tiles/nav.jsp"/>  
+      <put-attribute name="header" value="/WEB-INF/tiles/admin/header.jsp"/>  
+      <put-attribute name="nav"   value="/WEB-INF/tiles/admin/nav.jsp"/>  
       <put-attribute name="body"   value="CONTENT GOES HERE"/>
    </definition>  
    
-   <definition name="categoryForm" extends="dashboardTemplate">
+   <definition name="categoryForm" extends="adminTemplate">
     	<put-attribute name="title"  value="Add Category"/>  
    		<put-attribute name="body" value="/WEB-INF/views/inventory/category/form.jsp" />
    </definition>
    
-   <definition name="userAddForm" extends="dashboardTemplate">
+   <definition name="userAddForm" extends="adminTemplate">
     	<put-attribute name="title"  value="Add User"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/user/userAddForm.jsp" />
    </definition>
-   <definition name="userEditForm" extends="dashboardTemplate">
+   <definition name="userEditForm" extends="adminTemplate">
     	<put-attribute name="title"  value="Edit User"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/user/userEditForm.jsp" />
    </definition>
    
-    <definition name="userList" extends="dashboardTemplate">
+    <definition name="userList" extends="adminTemplate">
     	<put-attribute name="title"  value="Role"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/user/userList.jsp" />
    </definition>
    
-   <definition name="roleAddForm" extends="dashboardTemplate">
+   <definition name="roleAddForm" extends="adminTemplate">
     	<put-attribute name="title"  value="Add Role"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleAddForm.jsp" />
    </definition>
-   <definition name="roleEditForm" extends="dashboardTemplate">
+   <definition name="roleEditForm" extends="adminTemplate">
     	<put-attribute name="title"  value="Edit Role"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleEditForm.jsp" />
    </definition>
    
-    <definition name="roleList" extends="dashboardTemplate">
+    <definition name="roleList" extends="adminTemplate">
     	<put-attribute name="title"  value="Role"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleList.jsp" />
    </definition>
