@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.Transient;
 
 import ph.yondu.foosher.basic.domains.Logged;
 
@@ -153,5 +154,14 @@ public class User extends Logged {
 		this.roles = roles;
 	}
 	
-	
+	@Transient
+	public String getFullName(){
+		String fullname = "";
+		if(middlename.length() < 1){
+			fullname += firstname + " " + lastname;
+		} else {
+			fullname += firstname + " " + middlename + " " + lastname;
+		}
+		return fullname;
+	}
 }

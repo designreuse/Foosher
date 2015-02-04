@@ -3,19 +3,24 @@
  */
 package ph.yondu.foosher.cms.controllers;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ph.yondu.foosher.basic.controllers.BasicController;
 import ph.yondu.foosher.cms.dao.RoleDao;
 import ph.yondu.foosher.cms.domains.Role;
 
@@ -23,8 +28,9 @@ import ph.yondu.foosher.cms.domains.Role;
  * @author Sean Ross M. Fortunato
  *
  */
-@Controller @RequestMapping("/admin/cms/role")
-public class RoleController extends BasicController {
+@Controller 
+@RequestMapping("/admin/cms/role")
+public class RoleController {
 
 	@Autowired RoleDao roleDao;
 	
@@ -89,6 +95,17 @@ public class RoleController extends BasicController {
 		roleDao.disable(id);
 		redirectAttributes.addFlashAttribute("message", "Successfully removed role with ID " + id);
 		return "redirect:list.htm";
+	}
+	
+	
+	/**
+	 * Need ito para magmatch ung format ng date sa jstl at model na nasa controller
+	 * @param binder
+	 */
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
 	}
 	
 	

@@ -18,9 +18,18 @@
    		<put-attribute name="body" value="/WEB-INF/views/inventory/category/form.jsp" />
    </definition>
    
-   <definition name="userForm" extends="dashboardTemplate">
+   <definition name="userAddForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Add User"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/user/form.jsp" />
+   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userAddForm.jsp" />
+   </definition>
+   <definition name="userEditForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Edit User"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userEditForm.jsp" />
+   </definition>
+   
+    <definition name="userList" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Role"/>  
+   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userList.jsp" />
    </definition>
    
    <definition name="roleAddForm" extends="dashboardTemplate">
@@ -28,7 +37,7 @@
    		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleAddForm.jsp" />
    </definition>
    <definition name="roleEditForm" extends="dashboardTemplate">
-    	<put-attribute name="title"  value="Add Role"/>  
+    	<put-attribute name="title"  value="Edit Role"/>  
    		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleEditForm.jsp" />
    </definition>
    

@@ -5,10 +5,41 @@
             <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
         </li>
         <li>
-            <a href="<c:url value="/cms/role/add.htm"/>"><i class="fa fa-fw fa-bar-chart-o"></i> Create User Roles</a>
-        </li>
-        <li>
-            <a href=""><i class="fa fa-fw fa-table"></i> Create User Accounts</a>
+            <a href="javascript:;" data-toggle="collapse" data-target="#cmsmenu"><i class="fa fa-fw fa-table"></i> User Management</a>
+             <ul id="cmsmenu" class="collapse">
+                <li>
+                	 <a href="javascript:;" data-toggle="collapse" data-target="#rolemenu"></i> Role</a>
+                	 <ul id="rolemenu" class="collapse">
+                	 	<li>
+                	 		<a href="<c:url value="/admin/cms/role/add.htm"/>">
+                	 			<i class="fa fa-fw fa-bar-chart-o"></i> Add Roles
+                	 		</a>
+                	 	</li>
+                	 	<li>
+                   			<a href="<c:url value="/admin/cms/role/list.htm"/>">
+                   				<i class="fa fa-fw fa-bar-chart-o"></i> View Roles
+                   			</a>
+                		</li>
+                	 </ul>
+                    
+                </li>
+                 <li>
+                	 <a href="javascript:;" data-toggle="collapse" data-target="#usermenu"></i> User</a>
+                	 <ul id="usermenu" class="collapse">
+                	 	<li>
+                	 		<a href="<c:url value="/admin/cms/user/add.htm"/>">
+                	 			<i class="fa fa-fw fa-bar-chart-o"></i> Add Users
+                	 		</a>
+                	 	</li>
+                	 	<li>
+                   			<a href="<c:url value="/admin/cms/user/list.htm"/>">
+                   				<i class="fa fa-fw fa-bar-chart-o"></i> View Users
+                   			</a>
+                		</li>
+                	 </ul>
+                    
+                </li>
+            </ul>
         </li>
         <li>
             <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>
