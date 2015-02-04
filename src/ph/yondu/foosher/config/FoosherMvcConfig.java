@@ -38,7 +38,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 @EnableTransactionManagement
 @Configuration
 @ComponentScan(basePackages = "ph.yondu.foosher")
-@Import(FoosherPropertiesConfig.class)
+@Import({FoosherPropertiesConfig.class, FoosherSecurityConfig.class})
 public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	
 	@Value("${db.url}") private String dbUrl;

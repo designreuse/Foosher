@@ -7,11 +7,14 @@
 <tiles-definitions>  
   
    <definition name="publicTemplate" template="/WEB-INF/tiles/public/template.jsp">  
-      <put-attribute name="title"  value="Public Site"/>  
-     <!--  <put-attribute name="header" value="/WEB-INF/tiles/public/header.jsp"/>  
-      <put-attribute name="nav"   value="/WEB-INF/tiles/public/nav.jsp"/>  
-      <put-attribute name="body"   value="CONTENT GOES HERE"/> -->
+      <!-- <put-attribute name="title"  value="Public Site"/>  
+      <put-attribute name="header" value="/WEB-INF/tiles/public/header.jsp"/>  
+      <put-attribute name="nav"   value="/WEB-INF/tiles/public/nav.jsp"/>   -->
+      <put-attribute name="body"   value="CONTENT GOES HERE"/>
    </definition>  
   
-    
+    <definition name="loginForm" extends="publicTemplate">
+    	<put-attribute name="title"  value="Public Site"/>
+    	
+    </definition>
 </tiles-definitions>
