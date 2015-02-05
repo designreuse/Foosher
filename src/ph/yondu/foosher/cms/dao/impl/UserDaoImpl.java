@@ -89,4 +89,21 @@ public class UserDaoImpl implements UserDao {
 		return user;
 	}
 
+	/* (non-Javadoc)
+	 * @see ph.yondu.foosher.cms.dao.UserDao#findByUsername(java.lang.String)
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public User findByUsername(String username) {
+		User user = (User) sessionFactory.
+				getCurrentSession().
+				createCriteria(User.class).
+				add(Restrictions.eq("enabled", true)).
+				add(Restrictions.like("username", username)).uniqueResult();
+		if(user != null){
+			Hibernate.initialize(user.getRoles());
+		}	
+		return user;
+	}
+
 }

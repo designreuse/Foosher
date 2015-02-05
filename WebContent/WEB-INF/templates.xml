@@ -5,6 +5,11 @@
    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
   
 <tiles-definitions>  
+ <definition name="publicTemplate" template="/WEB-INF/tiles/public/template.jsp">  
+      <put-attribute name="title"  value="Public Site"/>
+   </definition>  
+
+	<definition name="loginForm" template="/WEB-INF/views/login.jsp"></definition>
   
    <definition name="adminTemplate" template="/WEB-INF/tiles/admin/template.jsp">  
       <put-attribute name="title"  value="Dashboard"/>  

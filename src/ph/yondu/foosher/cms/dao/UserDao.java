@@ -18,4 +18,5 @@ public interface UserDao {
 	User get(Long id);
 	void disable(Long id);
 	User getInitialized(Long id);
+	User findByUsername(String username);
 }

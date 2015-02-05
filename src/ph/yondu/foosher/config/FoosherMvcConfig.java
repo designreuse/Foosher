@@ -70,8 +70,7 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="tilesConfigurer")
 	public TilesConfigurer getTilesConfigurer(){
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
-		tilesConfigurer.setDefinitions("/WEB-INF/tiles/admin_def.xml");
-		tilesConfigurer.setDefinitions("/WEB-INF/tiles/public_def.xml");
+		tilesConfigurer.setDefinitions("/WEB-INF/templates.xml");
 		tilesConfigurer.setPreparerFactoryClass(SpringBeanPreparerFactory.class);
 		return tilesConfigurer;
 	}
