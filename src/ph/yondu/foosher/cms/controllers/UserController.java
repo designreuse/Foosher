@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.validation.Valid;
 
@@ -26,10 +25,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ph.yondu.foosher.cms.dao.RoleDao;
-import ph.yondu.foosher.cms.dao.UserDao;
 import ph.yondu.foosher.cms.domains.Role;
 import ph.yondu.foosher.cms.domains.User;
+import ph.yondu.foosher.cms.service.RoleService;
+import ph.yondu.foosher.cms.service.UserService;
 
 
 /**
@@ -40,8 +39,8 @@ import ph.yondu.foosher.cms.domains.User;
 @RequestMapping("/admin/cms/user")
 public class UserController {
 
-	@Autowired UserDao userDao;
-	@Autowired RoleDao roleDao;
+	@Autowired UserService userService;
+	@Autowired RoleService roleService;
 	private Map<String, Role> roleCache;
 	
 	@RequestMapping(value="/add.htm",  method=RequestMethod.GET)
@@ -63,7 +62,7 @@ public class UserController {
 			model.addAttribute("activeRoles", getActiveRoles());
 			return "userAddForm";
 		} else {
-			userDao.save(user);
+			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully added user " + user.getUsername());
 			return "redirect:add.htm";
 		}
@@ -72,7 +71,7 @@ public class UserController {
 	
 	@RequestMapping(value="/edit.htm", method=RequestMethod.GET)
 	public String editForm(@RequestParam(value="id", defaultValue="0", required=true) Long id, Model model){
-		model.addAttribute("userModel", userDao.getInitialized(id));
+		model.addAttribute("userModel", userService.get(id, true));
 		model.addAttribute("activeRoles",getActiveRoles());
 		return "userEditForm";
 	}
@@ -90,7 +89,7 @@ public class UserController {
 			model.addAttribute("activeRoles", getActiveRoles());
 			return "userEditForm";
 		} else {
-			userDao.save(user);
+			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully updated user " + user.getUsername());
 			return "redirect:edit.htm?id="+ user.getId();
 		}
@@ -99,21 +98,21 @@ public class UserController {
 	
 	@RequestMapping(value="/list.htm", method=RequestMethod.GET)
 	public String list(Model model){
-		model.addAttribute("users", userDao.list());
+		model.addAttribute("users", userService.list());
 		return "userList";
 	}
 	
 	@RequestMapping(value="/disable.htm", method=RequestMethod.GET)
 	public String disable(@RequestParam(value="id", defaultValue="0", required=true) Long id,
 			final RedirectAttributes redirectAttributes){
-		userDao.disable(id);
+		userService.disable(id);
 		redirectAttributes.addFlashAttribute("message", "Successfully removed user with ID " + id);
 		return "redirect:list.htm";
 	}
 	
 
 	private List<Role> getActiveRoles(){
-		List<Role> activeRoles = roleDao.list();
+		List<Role> activeRoles = roleService.list();
 		roleCache = new HashMap<String, Role>();
 		for (Role role : activeRoles) {
 			roleCache.put(role.getIdString(), role);

@@ -46,7 +46,6 @@ public class UserServiceImpl implements UserService {
 	 * @see ph.yondu.foosher.cms.service.UserService#save(ph.yondu.foosher.cms.domains.User)
 	 */
 	@Override
-	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void save(User user) {
 		userDao.save(user);
 	}
@@ -55,7 +54,6 @@ public class UserServiceImpl implements UserService {
 	 * @see ph.yondu.foosher.cms.service.UserService#list()
 	 */
 	@Override
-	@Transactional(readOnly=true)
 	public List<User> list() {
 		return userDao.list();
 	}
@@ -64,7 +62,6 @@ public class UserServiceImpl implements UserService {
 	 * @see ph.yondu.foosher.cms.service.UserService#get(java.lang.Long, boolean)
 	 */
 	@Override
-	@Transactional(readOnly=true)
 	public User get(Long id, boolean isInitialized) {
 		if(isInitialized){
 			return userDao.getInitialized(id);
@@ -76,9 +73,16 @@ public class UserServiceImpl implements UserService {
 	 * @see ph.yondu.foosher.cms.service.UserService#disable(java.lang.Long)
 	 */
 	@Override
-	@Transactional(readOnly=false, propagation=Propagation.REQUIRED)
 	public void disable(Long id) {
 		userDao.disable(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see ph.yondu.foosher.cms.service.UserService#findByUsername(java.lang.String)
+	 */
+	@Override
+	public User findByUsername(String username) {
+		return userDao.findByUsername(username);
 	}
 
 	

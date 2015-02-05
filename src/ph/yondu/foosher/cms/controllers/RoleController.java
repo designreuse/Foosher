@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import ph.yondu.foosher.cms.dao.RoleDao;
 import ph.yondu.foosher.cms.domains.Role;
+import ph.yondu.foosher.cms.service.RoleService;
 
 /**
  * @author Sean Ross M. Fortunato
@@ -32,7 +33,7 @@ import ph.yondu.foosher.cms.domains.Role;
 @RequestMapping("/admin/cms/role")
 public class RoleController {
 
-	@Autowired RoleDao roleDao;
+	@Autowired RoleService roleService;
 	
 	@RequestMapping(value="/add.htm",  method=RequestMethod.GET)
 	public String add(Model model){
@@ -51,7 +52,7 @@ public class RoleController {
 			model.addAttribute("roleModel", role);
 			return "roleAddForm";
 		} else {
-			roleDao.save(role);
+			roleService.save(role);
 			redirectAttributes.addFlashAttribute("message", "Successfully added role " + role.getDescription());
 			return "redirect:add.htm";
 		}
@@ -60,7 +61,7 @@ public class RoleController {
 	
 	@RequestMapping(value="/edit.htm", method=RequestMethod.GET)
 	public String editForm(@RequestParam(value="id", defaultValue="0", required=true) Long id, Model model){
-		model.addAttribute("roleModel", roleDao.get(id));
+		model.addAttribute("roleModel", roleService.get(id, false));
 		return "roleEditForm";
 	}
 
@@ -76,7 +77,7 @@ public class RoleController {
 			model.addAttribute("roleModel", role);
 			return "roleEditForm";
 		} else {
-			roleDao.save(role);
+			roleService.save(role);
 			redirectAttributes.addFlashAttribute("message", "Successfully updated role " + role.getDescription());
 			return "redirect:edit.htm?id="+role.getId();
 		}
@@ -85,14 +86,14 @@ public class RoleController {
 	
 	@RequestMapping(value="/list.htm", method=RequestMethod.GET)
 	public String list(Model model){
-		model.addAttribute("roles", roleDao.list());
+		model.addAttribute("roles", roleService.list());
 		return "roleList";
 	}
 	
 	@RequestMapping(value="/disable.htm", method=RequestMethod.GET)
 	public String disable(@RequestParam(value="id", defaultValue="0", required=true) Long id,
 			final RedirectAttributes redirectAttributes){
-		roleDao.disable(id);
+		roleService.disable(id);
 		redirectAttributes.addFlashAttribute("message", "Successfully removed role with ID " + id);
 		return "redirect:list.htm";
 	}

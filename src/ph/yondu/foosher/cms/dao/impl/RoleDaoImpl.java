@@ -5,6 +5,7 @@ package ph.yondu.foosher.cms.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +68,23 @@ public class RoleDaoImpl implements RoleDao {
 		        .setBoolean( "role_enabled", false )
 		        .setLong( "role_id", id )
 		        .executeUpdate();
+	}
+
+	/* (non-Javadoc)
+	 * @see ph.yondu.foosher.cms.dao.RoleDao#getInitialized(java.lang.Long)
+	 */
+	@Override
+	@Transactional(readOnly=true)
+	public Role getInitialized(Long id) {
+		Role initRole = (Role) sessionFactory.
+				getCurrentSession().
+				createCriteria(Role.class).
+				add(Restrictions.eq("enabled", true)).
+				add(Restrictions.eq("id", id)).uniqueResult();
+		if(initRole != null){
+			Hibernate.initialize(initRole.getUsers());
+		}
+		return initRole;
 	}
 
 }

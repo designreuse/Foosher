@@ -17,4 +17,5 @@ public interface UserService {
 	List<User> list();
 	User get(Long id, boolean isInitialized);
 	void disable(Long id);
+	User findByUsername(String username);
 }
