@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import ph.yondu.foosher.cms.dao.RoleDao;
 import ph.yondu.foosher.cms.domains.Role;
 import ph.yondu.foosher.cms.service.RoleService;
 

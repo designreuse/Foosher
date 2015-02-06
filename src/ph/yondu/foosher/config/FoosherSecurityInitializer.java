@@ -9,7 +9,6 @@ import org.springframework.security.web.context.AbstractSecurityWebApplicationIn
  * @author Sean Ross M. Fortunato
  *
  */
-public class FoosherSecurityInitializer extends
-		AbstractSecurityWebApplicationInitializer {
+public class FoosherSecurityInitializer extends AbstractSecurityWebApplicationInitializer  {
 
 }

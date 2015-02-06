@@ -15,7 +15,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import ph.yondu.foosher.cms.dao.UserDao;
 import ph.yondu.foosher.cms.domains.Role;
@@ -35,7 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	 * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
 	 */
 	@Override
-	@Transactional(readOnly=true)
 	public UserDetails loadUserByUsername(final String username)
 			throws UsernameNotFoundException {
 		User user = userDao.findByUsername(username);

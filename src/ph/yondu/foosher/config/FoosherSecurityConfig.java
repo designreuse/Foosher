@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import ph.yondu.foosher.cms.service.UserService;
 
 /**
  * @author Sean Ross M. Fortunato
@@ -27,31 +26,22 @@ public class FoosherSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//	  auth.inMemoryAuthentication().withUser("mkyong").password("123456").roles("USER");
-//	  auth.inMemoryAuthentication().withUser("admin").password("123456").roles("ADMIN");
-//	  auth.inMemoryAuthentication().withUser("dba").password("123456").roles("DBA");
 		auth.userDetailsService(userDetailsService).passwordEncoder(new Md5PasswordEncoder());
 	}
  
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
  
-//	  http.authorizeRequests()
-//		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//		.antMatchers("/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_DBA')")
-//		.and().formLogin();
-// 
 		http.authorizeRequests()
 		.antMatchers("/**").permitAll()
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-//		.antMatchers("/**").access("hasRole('ROLE_ANONYMOUS')")
 		.and().formLogin()
 		.loginPage("/login")
 		.failureUrl("/login?error")
 		.usernameParameter("username")
 		.passwordParameter("password")
 		.and().logout().logoutSuccessUrl("/login?logout")
-//		.and().csrf()
+		.and().csrf()
 		.and().exceptionHandling().accessDeniedPage("/403");
 	}
 	

@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import ph.yondu.foosher.cms.dao.UserDao;
-import ph.yondu.foosher.cms.domains.Role;
 import ph.yondu.foosher.cms.domains.User;
 
 /**
