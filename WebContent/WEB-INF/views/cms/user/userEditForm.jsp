@@ -1,5 +1,6 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://yondu.com/taglibs/comparator" prefix="comp" %>
 
 <!-- Page Heading -->
 <div class="row">
@@ -27,6 +28,7 @@
         	<form:hidden path="id"/>
 		    <form:hidden path="createdAt"/>
 		    <form:hidden path="enabled"/>
+		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
             <div class="form-group">
                 <form:label path="username">Username:</form:label>
@@ -36,7 +38,7 @@
 
           <div class="form-group">
                 <form:label path="password">Password:</form:label>
-                <form:input path="password" value="${user.password}" cssClass="form-control"/>
+                <form:password path="password" value="${user.password}" cssClass="form-control"/>
             </div>
             <div class="form-group has-error"><form:errors path="password" cssClass="form-control"/></div>
 
@@ -86,7 +88,21 @@
             	 <form:label path="roles">Select Roles:</form:label>
            	 </div>
           	 <div class="form-group">
-            	<form:select multiple="true" path="roles" items="${activeRoles}" itemLabel="description" itemValue="idString" />
+            	<select name="roles" multiple>
+				    <c:forEach items="${activeRoles}" var="role">
+				    	<c:set var="isSelected" value="false"/>
+				    	<c:forEach items="${userModel.roles}" var="currentRole">
+				    		<c:if test="${currentRole.id == role.id}">
+				    			<c:set var="isSelected" value="true"/>
+				    		</c:if> 
+				    	</c:forEach>
+				    	<option value="${role.id}" 
+				    		<c:if test="${isSelected eq true}">
+				    			selected
+				    		</c:if>
+			    		>${role.description}</option>
+					 </c:forEach>
+				</select>
             	 <div class="form-group has-error"><form:errors path="roles" cssClass="form-control"/></div>
             </div>
             

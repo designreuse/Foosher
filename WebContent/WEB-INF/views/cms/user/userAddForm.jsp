@@ -23,6 +23,8 @@
     <div class="col-lg-6">
 		<h2><c:out value="${message}" /></h2>
         <form:form method="POST" commandName="userModel" role="form">
+        
+        	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
             <div class="form-group">
                 <form:label path="username">Username:</form:label>

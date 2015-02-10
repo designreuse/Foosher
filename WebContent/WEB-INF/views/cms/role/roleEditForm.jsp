@@ -27,6 +27,7 @@
         	<form:hidden path="id"/>
 		    <form:hidden path="createdAt"/>
 		    <form:hidden path="enabled"/>
+		    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 
             <div class="form-group">
                 <form:label path="description">Role Description:</form:label>
@@ -40,7 +41,7 @@
             </div>
              <div class="form-group has-error"><form:errors path="code" cssClass="form-control"/></div>
             
-            
+            <form:errors path="*" />
             <div class="form-group">
             	<input type="submit" value="Submit" class="btn btn-success"/>
             </div>
