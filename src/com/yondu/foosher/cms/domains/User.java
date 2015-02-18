@@ -15,7 +15,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
-
 import com.yondu.foosher.basic.domains.Logged;
 
 /**
@@ -30,7 +29,9 @@ public class User extends Logged {
 	private Long id;
 	private String username;
 	private String password;
+	private String confirmPassword;
 	private String email;
+	private String confirmEmail;
 	
 	private String firstname;
 	private String middlename;
@@ -51,7 +52,7 @@ public class User extends Logged {
 	public void setId(Long id) {
 		this.id = id;
 	}
-
+	
 	@Column
 	public String getUsername() {
 		return username;
@@ -164,4 +165,24 @@ public class User extends Logged {
 		}
 		return fullname;
 	}
+
+	@Transient
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+	
+
+	@Transient
+	public String getConfirmEmail() {
+		return confirmEmail;
+	}
+
+	public void setConfirmEmail(String confirmEmail) {
+		this.confirmEmail = confirmEmail;
+	}
+	
 }

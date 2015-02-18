@@ -8,6 +8,7 @@ import java.util.Date;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,8 +20,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yondu.foosher.cms.domains.Role;
 import com.yondu.foosher.cms.service.RoleService;
 
@@ -97,6 +101,14 @@ public class RoleController {
 		return "redirect:list.htm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "/json/list.htm")
+	public String getRolesJson() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(roleService.get(1L, true));
+		Logger.getLogger(this.getClass()).info(json);
+		return json;
+	}
 	
 	/**
 	 * Need ito para magmatch ung format ng date sa jstl at model na nasa controller

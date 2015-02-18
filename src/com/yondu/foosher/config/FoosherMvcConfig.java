@@ -4,17 +4,22 @@
 package com.yondu.foosher.config;
 
 import java.beans.PropertyVetoException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Import;
+import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -59,6 +64,18 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
+	
+//	@Override
+//	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+//		converters.add(new GsonHttpMessageConverter());
+//	}
+	
+	@Bean(name="messageSource")
+	public MessageSource getMessageSource(){
+		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+		resourceBundleMessageSource.setBasename("validation");
+		return resourceBundleMessageSource;
+	}
 
 	@Bean(name="viewResolver")
 	public UrlBasedViewResolver getViewResolver() {

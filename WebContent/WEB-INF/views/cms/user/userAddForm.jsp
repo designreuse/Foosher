@@ -31,12 +31,31 @@
                 <form:input path="username" value="${user.username}" cssClass="form-control"/>
             </div>
             <div class="form-group has-error"><form:errors path="username" cssClass="form-control"/></div>
-
+            
+             <div class="form-group">
+                <form:label path="email">Email:</form:label>
+                <form:input path="email" value="${user.email}" cssClass="form-control"/>
+            </div>
+            <div class="form-group has-error"><form:errors path="email" cssClass="form-control"/></div>
+            
+             <div class="form-group">
+                <form:label path="confirmEmail">Confirm Email:</form:label>
+                <form:input path="confirmEmail" value="${user.confirmEmail}" cssClass="form-control"/>
+            </div>
+            <div class="form-group has-error"><form:errors path="confirmEmail" cssClass="form-control"/></div>
+            
+           
           <div class="form-group">
                 <form:label path="password">Password:</form:label>
-                <form:input path="password" value="${user.password}" cssClass="form-control"/>
+                <form:password path="password" cssClass="form-control"/>
             </div>
             <div class="form-group has-error"><form:errors path="password" cssClass="form-control"/></div>
+            
+             <div class="form-group">
+                <form:label path="confirmPassword">Confirm Password:</form:label>
+                <form:password path="confirmPassword" cssClass="form-control"/>
+            </div>
+            <div class="form-group has-error"><form:errors path="confirmPassword" cssClass="form-control"/></div>
 
              <div class="form-group">
                 <form:label path="firstname">First Name:</form:label>

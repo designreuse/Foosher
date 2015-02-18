@@ -11,9 +11,12 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.http.MediaType;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,12 +26,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.yondu.foosher.cms.domains.Role;
 import com.yondu.foosher.cms.domains.User;
 import com.yondu.foosher.cms.service.RoleService;
 import com.yondu.foosher.cms.service.UserService;
+import com.yondu.foosher.cms.validators.UserValidation;
 
 
 /**
@@ -39,6 +46,7 @@ import com.yondu.foosher.cms.service.UserService;
 @RequestMapping("/admin/cms/user")
 public class UserController {
 
+	@Autowired UserValidation userValidation;
 	@Autowired UserService userService;
 	@Autowired RoleService roleService;
 	private Map<String, Role> roleCache;
@@ -62,6 +70,7 @@ public class UserController {
 			model.addAttribute("activeRoles", getActiveRoles());
 			return "userAddForm";
 		} else {
+			user.setPassword(new Md5PasswordEncoder().encodePassword(user.getPassword(), null));
 			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully added user " + user.getUsername());
 			return "redirect:add.htm";
@@ -76,7 +85,6 @@ public class UserController {
 		return "userEditForm";
 	}
 
-	//TODO: Nagcreate ng bago instance si user, ausin ok? :D
 	@RequestMapping(value="/edit.htm", method=RequestMethod.POST)
 	public String update(
 			@ModelAttribute("userModel") @Valid User user, 
@@ -89,6 +97,7 @@ public class UserController {
 			model.addAttribute("activeRoles", getActiveRoles());
 			return "userEditForm";
 		} else {
+			user.setPassword(new Md5PasswordEncoder().encodePassword(user.getPassword(), null));
 			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully updated user " + user.getUsername());
 			return "redirect:edit.htm?id="+ user.getId();
@@ -100,6 +109,15 @@ public class UserController {
 	public String list(Model model){
 		model.addAttribute("users", userService.list());
 		return "userList";
+	}
+	
+	@ResponseBody
+	@RequestMapping(value = "/json/list.htm")
+	public String getUsersJson() {
+		Gson gson = new GsonBuilder().setPrettyPrinting().create();
+		String json = gson.toJson(userService.get(1L, true));
+		Logger.getLogger(this.getClass()).info(json);
+		return json;
 	}
 	
 	@RequestMapping(value="/disable.htm", method=RequestMethod.GET)
@@ -122,24 +140,21 @@ public class UserController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
+		binder.setValidator(userValidation);
+		
 		binder.registerCustomEditor(List.class, "roles", new CustomCollectionEditor(List.class) {
 			protected Object convertElement(Object element) {
-//				if (element instanceof Role) {
-//					System.out.println("Converting from Role to Role: " + element);
-//					return element;
-//				}
-				
 				if (element instanceof Role) {
-					Role r = (Role) element;
-					return r.getIdString();
+					Logger.getLogger(this.getClass()).debug("Converting from Role to Role: " + element);
+					return element;
 				}
 				
 				if (element instanceof String) {
 					Role role = roleCache.get(element);
-					System.out.println("Looking up role for id " + element + ": " + role);
+					Logger.getLogger(this.getClass()).debug("Looking up role for id " + element + ": " + role);
 					return role;
 				}
-				System.out.println("Don't know what to do with: " + element);
+				Logger.getLogger(this.getClass()).debug("Don't know what to do with: " + element);
 				return null;
 			}
 		});

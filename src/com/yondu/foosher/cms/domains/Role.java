@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
-import org.hibernate.validator.constraints.NotEmpty;
 
 import com.yondu.foosher.basic.domains.Logged;
 
@@ -39,7 +38,6 @@ public class Role extends Logged {
 		this.id = id;
 	}
 	
-	@NotEmpty
 	@Column
 	public String getDescription() {
 		return description;
@@ -56,7 +54,6 @@ public class Role extends Logged {
 		this.users = users;
 	}
 	
-	@NotEmpty
 	@Column
 	public String getCode() {
 		return code;
