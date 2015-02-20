@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,18 +34,18 @@ import com.yondu.foosher.cms.service.RoleService;
  *
  */
 @Controller 
-@RequestMapping("/admin/cms/role")
+@RequestMapping("/cms/role")
 public class RoleController {
 
 	@Autowired RoleService roleService;
 	
-	@RequestMapping(value="/add.htm",  method=RequestMethod.GET)
+	@RequestMapping(value="/add",  method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("roleModel", new Role());
 		return "roleAddForm";
 	}
 	
-	@RequestMapping(value="/add.htm", method=RequestMethod.POST)
+	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String insert(
 			@ModelAttribute("roleModel") @Valid Role role, 
 			BindingResult bindingResult,
@@ -57,19 +58,19 @@ public class RoleController {
 		} else {
 			roleService.save(role);
 			redirectAttributes.addFlashAttribute("message", "Successfully added role " + role.getDescription());
-			return "redirect:add.htm";
+			return "redirect:add";
 		}
 		
 	}
 	
-	@RequestMapping(value="/edit.htm", method=RequestMethod.GET)
-	public String editForm(@RequestParam(value="id", defaultValue="0", required=true) Long id, Model model){
+	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
+	public String editForm(@PathVariable("id") Long id, Model model){
 		model.addAttribute("roleModel", roleService.get(id, false));
 		return "roleEditForm";
 	}
 
 	//TODO add feedback text whether success or fail
-	@RequestMapping(value="/edit.htm", method=RequestMethod.POST)
+	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
 	public String update(
 			@ModelAttribute("roleModel") @Valid Role role, 
 			BindingResult bindingResult,

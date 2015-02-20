@@ -19,8 +19,13 @@ public class IndexController {
 	
     @RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(){
-		return "publicTemplate"; //TODO: temporary lang ito
+		return "redirect:dashboard";
 	}
+    
+    @RequestMapping(value="/dashboard", method = RequestMethod.GET)
+    public String dashboard(){
+    	return "dashboardTemplate";
+    }
     
     @RequestMapping(value="/login", method=RequestMethod.GET)
     public String login(){

@@ -33,7 +33,7 @@ public class FoosherSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
  
 		http.authorizeRequests()
-		.antMatchers("/**").permitAll()
+//		.antMatchers("/**").permitAll()
 		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 		.and().formLogin()
 		.loginPage("/login")
@@ -41,8 +41,10 @@ public class FoosherSecurityConfig extends WebSecurityConfigurerAdapter {
 		.usernameParameter("username")
 		.passwordParameter("password")
 		.and().logout().logoutSuccessUrl("/login?logout")
-		.and().csrf()
+//		.and().csrf()
 		.and().exceptionHandling().accessDeniedPage("/403");
+		
+		http.csrf().disable();
 	}
 	
 }

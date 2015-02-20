@@ -23,6 +23,7 @@ import org.springframework.http.converter.json.GsonHttpMessageConverter;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -126,4 +127,10 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	    return transactionManager;
 	}
 	
+	@Bean(name="multipartResolver")
+	public CommonsMultipartResolver getMultipartResolver(){
+		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
+		commonsMultipartResolver.setMaxUploadSize(100000);
+		return commonsMultipartResolver;
+	}
 }

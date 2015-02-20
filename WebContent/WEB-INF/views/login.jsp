@@ -1,141 +1,64 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
-<html>
+<html class="bg-black">
+    <head>
+        <title>AdminLTE | Log in</title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <!-- bootstrap 3.0.2 -->
+        <link href="<c:url value="/css/bootstrap.min.css"/>" rel="stylesheet" type="text/css" />
+        <!-- font Awesome -->
+        <link href="<c:url value="/css/font-awesome.min.css"/>" rel="stylesheet" type="text/css" />
+        <!-- Theme style -->
+        <link href="<c:url value="/css/AdminLTE.css"/>" rel="stylesheet" type="text/css" />
 
-<head>
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="bg-black">
 
-  <title>Foosher - Log-in</title>
+        <div class="form-box" id="login-box">
+            <div class="header">Log In</div>
+            <form action="<c:url value='/login' />" method="post">
+                <div class="body bg-gray">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="Username"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password"/>
+                    </div>          
+                    <div class="form-group">
+                    	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                        <input type="checkbox" name="remember_me"/> Remember me
+                    </div>
+                </div>
+                <div class="footer">                                                               
+                    <button type="submit" class="btn bg-olive btn-block">Enter</button>  
+                    
+                    <p><a href="#">I forgot my password</a></p>
+                    
+                    <a href="register.html" class="text-center">Register a new membership</a>
+                </div>
+            </form>
 
-  <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
-	
-	<style>
-	body {
-	  background: url(https://dl.dropboxusercontent.com/u/23299152/Wallpapers/wallpaper-22705.jpg) no-repeat center center fixed; 
-	  -webkit-background-size: cover;
-	  -moz-background-size: cover;
-	  -o-background-size: cover;
-	  background-size: cover;
-	  font-family: 'Roboto', sans-serif;
-	}
-	
-	.login-card {
-	  padding: 40px;
-	  width: 274px;
-	  background-color: #F7F7F7;
-	  margin: 0 auto 10px;
-	  border-radius: 2px;
-	  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-	  overflow: hidden;
-	}
-	
-	.login-card h1 {
-	  font-weight: 100;
-	  text-align: center;
-	  font-size: 2.3em;
-	}
-	
-	.login-card input[type=submit] {
-	  width: 100%;
-	  display: block;
-	  margin-bottom: 10px;
-	  position: relative;
-	}
-	
-	.login-card input[type=text], input[type=password] {
-	  height: 44px;
-	  font-size: 16px;
-	  width: 100%;
-	  margin-bottom: 10px;
-	  -webkit-appearance: none;
-	  background: #fff;
-	  border: 1px solid #d9d9d9;
-	  border-top: 1px solid #c0c0c0;
-	  /* border-radius: 2px; */
-	  padding: 0 8px;
-	  box-sizing: border-box;
-	  -moz-box-sizing: border-box;
-	}
-	
-	.login-card input[type=text]:hover, input[type=password]:hover {
-	  border: 1px solid #b9b9b9;
-	  border-top: 1px solid #a0a0a0;
-	  -moz-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	  -webkit-box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	  box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
-	}
-	
-	.login {
-	  text-align: center;
-	  font-size: 14px;
-	  font-family: 'Arial', sans-serif;
-	  font-weight: 700;
-	  height: 36px;
-	  padding: 0 8px;
-	/* border-radius: 3px; */
-	/* -webkit-user-select: none;
-	  user-select: none; */
-	}
-	
-	.login-submit {
-	  /* border: 1px solid #3079ed; */
-	  border: 0px;
-	  color: #fff;
-	  text-shadow: 0 1px rgba(0,0,0,0.1); 
-	  background-color: #4d90fe;
-	  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#4787ed)); */
-	}
-	
-	.login-submit:hover {
-	  /* border: 1px solid #2f5bb7; */
-	  border: 0px;
-	  text-shadow: 0 1px rgba(0,0,0,0.3);
-	  background-color: #357ae8;
-	  /* background-image: -webkit-gradient(linear, 0 0, 0 100%,   from(#4d90fe), to(#357ae8)); */
-	}
-	
-	.login-card a {
-	  text-decoration: none;
-	  color: #666;
-	  font-weight: 400;
-	  text-align: center;
-	  display: inline-block;
-	  opacity: 0.6;
-	  transition: opacity ease 0.5s;
-	}
-	
-	.login-card a:hover {
-	  opacity: 1;
-	}
-	
-	.login-help {
-	  width: 100%;
-	  text-align: center;
-	  font-size: 12px;
-	}
-</style>
+            <div class="margin text-center">
+                <span>Sign in using social networks</span>
+                <br/>
+                <button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button>
+                <button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button>
+                <button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button>
 
-</head>
+            </div>
+        </div>
 
-<body>
 
-  <div class="login-card">
-    <h1>Log-in</h1><br>
-  <form name='loginForm' action="<c:url value='/login' />" method='POST'>
-   <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
-    <input type="text" name="username" placeholder="Username">
-    <input type="password" name="password" placeholder="Password">
-    <input type="submit" name="login" class="login login-submit" value="login">
-  </form>
+        <!-- jQuery 2.0.2 -->
+        <script src="<c:url value="/js/jquery-2.0.2.js"/>"></script>
+        <!-- Bootstrap -->
+        <script src="<c:url value="/js/bootstrap.min.js"/>" type="text/javascript"></script>        
 
-  <div class="login-help">
-    <a href="#">Register</a> <br/> <a href="#">Forgot Password</a>
-  </div>
-</div>
-
-<!-- <div id="error"><img src="https://dl.dropboxusercontent.com/u/23299152/Delete-icon.png" /> Your caps-lock is on.</div> -->
-
-  <script src='http://codepen.io/assets/libs/fullpage/jquery_and_jqueryui.js'></script>
-
-</body>
-
+    </body>
 </html>

@@ -5,50 +5,49 @@
    "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
   
 <tiles-definitions>  
- <definition name="publicTemplate" template="/WEB-INF/tiles/public/template.jsp">  
-      <put-attribute name="title"  value="Public Site"/>
-   </definition>  
+ 
 
 	<definition name="loginForm" template="/WEB-INF/views/login.jsp"></definition>
   
-   <definition name="adminTemplate" template="/WEB-INF/tiles/admin/template.jsp">  
-      <put-attribute name="title"  value="Dashboard"/>  
-      <put-attribute name="header" value="/WEB-INF/tiles/admin/header.jsp"/>  
-      <put-attribute name="nav"   value="/WEB-INF/tiles/admin/nav.jsp"/>  
-      <put-attribute name="body"   value="CONTENT GOES HERE"/>
+   <definition name="dashboardTemplate" template="/WEB-INF/tiles/lte/template.jsp">  
+      <put-attribute name="title" value="Dashboard"/>  
+      <put-attribute name="sidebar" value="/WEB-INF/tiles/lte/sidebar.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/lte/header.jsp"/>  
+      <put-attribute name="breadcrumb" value="/WEB-INF/tiles/lte/breadcrumb.jsp"/>
+      <put-attribute name="content" value="/WEB-INF/tiles/lte/content.jsp"/>
    </definition>  
    
-   <definition name="categoryForm" extends="adminTemplate">
-    	<put-attribute name="title"  value="Add Category"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/inventory/category/form.jsp" />
-   </definition>
-   
-   <definition name="userAddForm" extends="adminTemplate">
+   <definition name="userAddForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Add User"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userAddForm.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/user/userAddForm.jsp" />
    </definition>
-   <definition name="userEditForm" extends="adminTemplate">
+   <definition name="userEditForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Edit User"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userEditForm.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/user/userEditForm.jsp" />
    </definition>
    
-    <definition name="userList" extends="adminTemplate">
+    <definition name="userList" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Role"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/user/userList.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/user/userList.jsp" />
    </definition>
    
-   <definition name="roleAddForm" extends="adminTemplate">
+   <definition name="roleAddForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Add Role"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleAddForm.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/role/roleAddForm.jsp" />
    </definition>
-   <definition name="roleEditForm" extends="adminTemplate">
+   <definition name="roleEditForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Edit Role"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleEditForm.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/role/roleEditForm.jsp" />
    </definition>
    
-    <definition name="roleList" extends="adminTemplate">
+    <definition name="roleList" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Role"/>  
-   		<put-attribute name="body" value="/WEB-INF/views/cms/role/roleList.jsp" />
+   		<put-attribute name="content" value="/WEB-INF/views/cms/role/roleList.jsp" />
    </definition>
-    
+
+
+   <definition name="fileAddForm" extends="dashboardTemplate">
+    	<put-attribute name="title"  value="Upload File"/>  
+   		<put-attribute name="content" value="/WEB-INF/views/cms/file/fileAddForm.jsp" />
+   </definition>
 </tiles-definitions>
