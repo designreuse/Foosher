@@ -31,6 +31,9 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        
+        <!-- jQuery 2.0.2 -->
+        <script src="<c:url value="/js/jquery-2.0.2.js"/>"></script>
     </head>
     <body class="skin-blue">
         
@@ -57,8 +60,6 @@
         <!-- add new calendar event modal -->
 
 
-        <!-- jQuery 2.0.2 -->
-        <script src="<c:url value="/js/jquery-2.0.2.js"/>"></script>
         <!-- jQuery UI 1.10.3 -->
         <script src="<c:url value="/js/jquery-ui-1.10.3.min.js"/>" type="text/javascript"></script>
         <!-- Bootstrap -->

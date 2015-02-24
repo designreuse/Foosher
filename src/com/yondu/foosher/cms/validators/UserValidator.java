@@ -20,22 +20,16 @@ import com.yondu.foosher.cms.service.UserService;
  *
  */
 @Component
-public class UserValidation implements Validator {
+public class UserValidator implements Validator {
 	
 	@Autowired
 	UserService userService;
 
-	/* (non-Javadoc)
-	 * @see org.springframework.validation.Validator#supports(java.lang.Class)
-	 */
 	@Override
 	public boolean supports(Class<?> paramClass) {
 		return User.class.equals(paramClass);
 	}
 
-	/* (non-Javadoc)
-	 * @see org.springframework.validation.Validator#validate(java.lang.Object, org.springframework.validation.Errors)
-	 */
 	@Override
 	public void validate(Object obj, Errors errors) {
 		User user = (User) obj;
@@ -48,10 +42,10 @@ public class UserValidation implements Validator {
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "cms.user.password.notempty");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "cms.user.email.notempty");
 		if(!user.getPassword().equals(user.getConfirmPassword())){
-			errors.rejectValue("confirmPassword", "cms.user.confirmPassword");
+			errors.rejectValue("confirmPassword", "cms.user.password.confirm");
 		}
 		if(!user.getEmail().equals(user.getConfirmEmail())){
-			errors.rejectValue("confirmEmail", "cms.user.confirmEmail");
+			errors.rejectValue("confirmEmail", "cms.user.email.confirm");
 		}
 		if(user.getEmail() != null && !user.getEmail().isEmpty()){
 			Pattern pattern = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");

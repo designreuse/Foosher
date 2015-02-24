@@ -25,9 +25,9 @@ public class UploadDaoImpl implements UploadDao {
 	SessionFactory sessionFactory;
 	
 	@Override
-	@Transactional(propagation=Propagation.REQUIRED)
+	@Transactional(readOnly=false)
 	public void save(Upload upload) {
-		sessionFactory.getCurrentSession().save(upload);
+		sessionFactory.getCurrentSession().saveOrUpdate(upload);
 	}
 
 }

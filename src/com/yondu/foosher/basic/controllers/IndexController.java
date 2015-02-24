@@ -19,15 +19,15 @@ public class IndexController {
 	
     @RequestMapping(value="/", method = RequestMethod.GET)
 	public String index(){
-		return "redirect:dashboard";
+		return "redirect:dashboard.html";
 	}
     
-    @RequestMapping(value="/dashboard", method = RequestMethod.GET)
+    @RequestMapping(value="/dashboard.html", method = RequestMethod.GET)
     public String dashboard(){
     	return "dashboardTemplate";
     }
     
-    @RequestMapping(value="/login", method=RequestMethod.GET)
+    @RequestMapping(value="/login.html", method=RequestMethod.GET)
     public String login(){
     	logger.info(new Md5PasswordEncoder().encodePassword("admin", null).toString());
     	return "loginForm";

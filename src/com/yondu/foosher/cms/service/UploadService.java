@@ -11,6 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface UploadService {
 
-	void save(MultipartFile multipartFile, String description);
+	void saveImage(MultipartFile multipartFile, int increments);
 	
 }

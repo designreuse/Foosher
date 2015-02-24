@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  
+<!DOCTYPE tiles-definitions PUBLIC  
+   "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  
+   "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+  
+<tiles-definitions>  
+
+	<definition name="loginForm" template="/WEB-INF/views/login.jsp"></definition>
+  
+   <definition name="dashboardTemplate" template="/WEB-INF/tiles/lte/template.jsp">  
+      <put-attribute name="title" value="Dashboard"/>  
+      <put-attribute name="sidebar" value="/WEB-INF/tiles/lte/sidebar.jsp"/>
+      <put-attribute name="header" value="/WEB-INF/tiles/lte/header.jsp"/>  
+      <put-attribute name="breadcrumb" value="/WEB-INF/tiles/lte/breadcrumb.jsp"/>
+      <put-attribute name="content" value="/WEB-INF/tiles/lte/content.jsp"/>
+   </definition>  
+
+   
+   
+</tiles-definitions>

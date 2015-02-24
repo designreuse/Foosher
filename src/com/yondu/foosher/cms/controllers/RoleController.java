@@ -28,6 +28,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.yondu.foosher.cms.domains.Role;
 import com.yondu.foosher.cms.service.RoleService;
+import com.yondu.foosher.cms.validators.RoleValidator;
 
 /**
  * @author Sean Ross M. Fortunato
@@ -38,14 +39,15 @@ import com.yondu.foosher.cms.service.RoleService;
 public class RoleController {
 
 	@Autowired RoleService roleService;
+	@Autowired RoleValidator roleValidator;
 	
-	@RequestMapping(value="/add",  method=RequestMethod.GET)
+	@RequestMapping(value="/add.html",  method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("roleModel", new Role());
 		return "roleAddForm";
 	}
 	
-	@RequestMapping(value="/add", method=RequestMethod.POST)
+	@RequestMapping(value="/add.html", method=RequestMethod.POST)
 	public String insert(
 			@ModelAttribute("roleModel") @Valid Role role, 
 			BindingResult bindingResult,
@@ -58,19 +60,21 @@ public class RoleController {
 		} else {
 			roleService.save(role);
 			redirectAttributes.addFlashAttribute("message", "Successfully added role " + role.getDescription());
-			return "redirect:add";
+			return "redirect:add.html";
 		}
 		
 	}
 	
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.GET)
-	public String editForm(@PathVariable("id") Long id, Model model){
+	@RequestMapping(value="/edit.html", method=RequestMethod.GET)
+	public String editForm(
+			@RequestParam(value="id", defaultValue="0", required=true) Long id, 
+			Model model){
+		
 		model.addAttribute("roleModel", roleService.get(id, false));
 		return "roleEditForm";
 	}
 
-	//TODO add feedback text whether success or fail
-	@RequestMapping(value="/edit/{id}", method=RequestMethod.POST)
+	@RequestMapping(value="/edit.html", method=RequestMethod.POST)
 	public String update(
 			@ModelAttribute("roleModel") @Valid Role role, 
 			BindingResult bindingResult,
@@ -83,27 +87,29 @@ public class RoleController {
 		} else {
 			roleService.save(role);
 			redirectAttributes.addFlashAttribute("message", "Successfully updated role " + role.getDescription());
-			return "redirect:edit.htm?id="+role.getId();
+			return "redirect:edit.html?id="+role.getId();
 		}
 		
 	}
 	
-	@RequestMapping(value="/list.htm", method=RequestMethod.GET)
+	@RequestMapping(value="/list.html", method=RequestMethod.GET)
 	public String list(Model model){
 		model.addAttribute("roles", roleService.list());
 		return "roleList";
 	}
 	
-	@RequestMapping(value="/disable.htm", method=RequestMethod.GET)
-	public String disable(@RequestParam(value="id", defaultValue="0", required=true) Long id,
+	@RequestMapping(value="/disable.html", method=RequestMethod.GET)
+	public String disable(
+			@RequestParam(value="id", defaultValue="0", required=true) Long id,
 			final RedirectAttributes redirectAttributes){
+		
 		roleService.disable(id);
 		redirectAttributes.addFlashAttribute("message", "Successfully removed role with ID " + id);
-		return "redirect:list.htm";
+		return "redirect:list.html";
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/json/list.htm")
+	@RequestMapping(value = "/list.json")
 	public String getRolesJson() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(roleService.get(1L, true));
@@ -119,6 +125,7 @@ public class RoleController {
 	protected void initBinder(WebDataBinder binder) {
 	    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
+	    binder.addValidators(roleValidator);
 	}
 	
 	

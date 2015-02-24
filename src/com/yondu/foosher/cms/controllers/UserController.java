@@ -35,7 +35,7 @@ import com.yondu.foosher.cms.domains.Role;
 import com.yondu.foosher.cms.domains.User;
 import com.yondu.foosher.cms.service.RoleService;
 import com.yondu.foosher.cms.service.UserService;
-import com.yondu.foosher.cms.validators.UserValidation;
+import com.yondu.foosher.cms.validators.UserValidator;
 
 
 /**
@@ -43,22 +43,22 @@ import com.yondu.foosher.cms.validators.UserValidation;
  *
  */
 @Controller 
-@RequestMapping("/admin/cms/user")
+@RequestMapping("/cms/user")
 public class UserController {
 
-	@Autowired UserValidation userValidation;
+	@Autowired UserValidator userValidator;
 	@Autowired UserService userService;
 	@Autowired RoleService roleService;
 	private Map<String, Role> roleCache;
 	
-	@RequestMapping(value="/add.htm",  method=RequestMethod.GET)
+	@RequestMapping(value="/add.html",  method=RequestMethod.GET)
 	public String add(Model model){
 		model.addAttribute("userModel", new User());
 		model.addAttribute("activeRoles",getActiveRoles());
 		return "userAddForm";
 	}
 	
-	@RequestMapping(value="/add.htm", method=RequestMethod.POST)
+	@RequestMapping(value="/add.html", method=RequestMethod.POST)
 	public String insert(
 			@ModelAttribute("userModel") @Valid User user, 
 			BindingResult bindingResult,
@@ -73,19 +73,19 @@ public class UserController {
 			user.setPassword(new Md5PasswordEncoder().encodePassword(user.getPassword(), null));
 			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully added user " + user.getUsername());
-			return "redirect:add.htm";
+			return "redirect:add.html";
 		}
 		
 	}
 	
-	@RequestMapping(value="/edit.htm", method=RequestMethod.GET)
+	@RequestMapping(value="/edit.html", method=RequestMethod.GET)
 	public String editForm(@RequestParam(value="id", defaultValue="0", required=true) Long id, Model model){
 		model.addAttribute("userModel", userService.get(id, true));
 		model.addAttribute("activeRoles",getActiveRoles());
 		return "userEditForm";
 	}
 
-	@RequestMapping(value="/edit.htm", method=RequestMethod.POST)
+	@RequestMapping(value="/edit.html", method=RequestMethod.POST)
 	public String update(
 			@ModelAttribute("userModel") @Valid User user, 
 			BindingResult bindingResult,
@@ -100,7 +100,7 @@ public class UserController {
 			user.setPassword(new Md5PasswordEncoder().encodePassword(user.getPassword(), null));
 			userService.save(user);
 			redirectAttributes.addFlashAttribute("message", "Successfully updated user " + user.getUsername());
-			return "redirect:edit.htm?id="+ user.getId();
+			return "redirect:edit.html?id="+ user.getId();
 		}
 		
 	}
@@ -112,7 +112,7 @@ public class UserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/json/list.htm")
+	@RequestMapping(value = "/list.json")
 	public String getUsersJson() {
 		Gson gson = new GsonBuilder().setPrettyPrinting().create();
 		String json = gson.toJson(userService.get(1L, true));
@@ -120,12 +120,12 @@ public class UserController {
 		return json;
 	}
 	
-	@RequestMapping(value="/disable.htm", method=RequestMethod.GET)
+	@RequestMapping(value="/disable.html", method=RequestMethod.GET)
 	public String disable(@RequestParam(value="id", defaultValue="0", required=true) Long id,
 			final RedirectAttributes redirectAttributes){
 		userService.disable(id);
 		redirectAttributes.addFlashAttribute("message", "Successfully removed user with ID " + id);
-		return "redirect:list.htm";
+		return "redirect:list.html";
 	}
 	
 
@@ -140,7 +140,7 @@ public class UserController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) throws Exception {
-		binder.setValidator(userValidation);
+		binder.setValidator(userValidator);
 		
 		binder.registerCustomEditor(List.class, "roles", new CustomCollectionEditor(List.class) {
 			protected Object convertElement(Object element) {

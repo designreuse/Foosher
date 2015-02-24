@@ -6,6 +6,7 @@ package com.yondu.foosher.aop;
 import java.lang.reflect.Field;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -16,7 +17,8 @@ import org.springframework.stereotype.Component;
  * @author Sean Ross M. Fortunato
  *
  */
-@Aspect @Component
+@Aspect 
+@Component
 public class LoggingAspect {
 
 	@Before("execution(public void save(..))")  
@@ -47,7 +49,8 @@ public class LoggingAspect {
             }
 		
         } catch (Exception e) {
-            e.printStackTrace(System.out);
+            Logger.getLogger(this.getClass()).info("An error has occured in logging aspect.");
+            Logger.getLogger(this.getClass()).debug(e);
         }
 	}
 }

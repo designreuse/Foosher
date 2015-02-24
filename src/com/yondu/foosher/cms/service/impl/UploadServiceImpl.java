@@ -32,16 +32,21 @@ public class UploadServiceImpl implements UploadService, ServletContextAware {
 	@Autowired UploadDao uploadDao;
 	
 	@Override
-	public void save(MultipartFile multipartFile, String description) {
-		String todayAsString = new SimpleDateFormat("ddMMyyyyhhmm").format(new Date());
-		String filePath = servletContext.getRealPath("/") + "/uploads/" + todayAsString + ".jpg";
-		File file = new File(filePath);
+	public void saveImage(MultipartFile multipartFile, int increments) {
+		String format = "yyyyMMddhhmmss";
+		String todayAsString = new SimpleDateFormat(format).format(new Date());
+		String filename = todayAsString + increments + ".jpg";
+		String filePath = "/uploads/" + filename;
+		String realFilePath = servletContext.getRealPath("/") + filePath;
+		File file = new File(realFilePath);
 		try {
 			FileUtils.writeByteArrayToFile(file, multipartFile.getBytes());
 			Upload myFile = new Upload();
-			myFile.setDescription(description);
+			myFile.setDescription(filename);
 			myFile.setPath(filePath);
 			uploadDao.save(myFile);
+			Logger.getLogger(this.getClass()).info("Image upload success.");
+			Logger.getLogger(this.getClass()).debug("Successfully uploaded image at : " + realFilePath);
 		} catch (IOException e) {
 			Logger.getLogger(this.getClass()).info("Go to the location:  " + file.toString()
 					+ " on your computer and verify that the image has been stored.");

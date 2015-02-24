@@ -34,8 +34,8 @@
 				                          <td><c:out value="${role.code}"></c:out></td>
 				                          <td><c:out value="${role.createdAt}"></c:out></td>
 				                           <td><c:out value="${role.updatedAt}"></c:out></td>
-				                          <td><a href="<c:url value="edit.htm" ><c:param name="id" value="${role.id}"/></c:url>" class="btn btn-sm btn-primary">Edit</a>
-				                          <a href="<c:url value="disable.htm" ><c:param name="id" value="${role.id}"/></c:url>" class="btn btn-sm btn-danger">Delete</a></td>
+				                          <td><a href="<c:url value="edit.html" ><c:param name="id" value="${user.id}"/></c:url>" class="btn btn-sm btn-primary">Edit</a>
+				                          <a href="<c:url value="disable.html" ><c:param name="id" value="${user.id}"/></c:url>" class="btn btn-sm btn-danger">Delete</a></td>
 				                      	</tr>
 				                  	</c:forEach> 
 			                  	</c:when>

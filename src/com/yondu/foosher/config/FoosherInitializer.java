@@ -21,9 +21,6 @@ import org.springframework.web.servlet.DispatcherServlet;
  */
 public class FoosherInitializer implements WebApplicationInitializer {
 
-	/* (non-Javadoc)
-	 * @see org.springframework.web.WebApplicationInitializer#onStartup(javax.servlet.ServletContext)
-	 */
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		WebApplicationContext context = getContext();

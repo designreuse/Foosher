@@ -3,11 +3,16 @@
  */
 package com.yondu.foosher.cms.domains;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.yondu.foosher.basic.domains.Logged;
 
@@ -21,6 +26,7 @@ public class Upload extends Logged {
 	private Long id;
 	private String description;
 	private String path;
+	private List<MultipartFile> files;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,5 +53,12 @@ public class Upload extends Logged {
 		this.path = path;
 	}
 	
+	@Transient
+	public List<MultipartFile> getFiles() {
+		return files;
+	}
+	public void setFiles(List<MultipartFile> files) {
+		this.files = files;
+	}
 	
 }

@@ -60,23 +60,14 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Value("${db.show.sql}") private String dbShowSql;
 	@Value("${db.hbm2ddl.auto}") private String dbHbm2DdlAuto;
 	@Value("${db.sql.dialect}") private String dbDialect;
+	@Value("${file.max.upload.size}") private Integer maxUploadSize;
+	@Value("${message.source.base.name}") private String messageSourceBaseName;
+	
 	
 	@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
         configurer.enable();
     }
-	
-//	@Override
-//	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-//		converters.add(new GsonHttpMessageConverter());
-//	}
-	
-	@Bean(name="messageSource")
-	public MessageSource getMessageSource(){
-		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
-		resourceBundleMessageSource.setBasename("validation");
-		return resourceBundleMessageSource;
-	}
 
 	@Bean(name="viewResolver")
 	public UrlBasedViewResolver getViewResolver() {
@@ -88,7 +79,7 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="tilesConfigurer")
 	public TilesConfigurer getTilesConfigurer(){
 		TilesConfigurer tilesConfigurer = new TilesConfigurer();
-		tilesConfigurer.setDefinitions("/WEB-INF/templates.xml");
+		tilesConfigurer.setDefinitions("/WEB-INF/tiles/*.xml");
 		tilesConfigurer.setPreparerFactoryClass(SpringBeanPreparerFactory.class);
 		return tilesConfigurer;
 	}
@@ -130,7 +121,14 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Bean(name="multipartResolver")
 	public CommonsMultipartResolver getMultipartResolver(){
 		CommonsMultipartResolver commonsMultipartResolver = new CommonsMultipartResolver();
-		commonsMultipartResolver.setMaxUploadSize(100000);
+		commonsMultipartResolver.setMaxUploadSize(maxUploadSize);
 		return commonsMultipartResolver;
+	}
+	
+	@Bean(name="messageSource")
+	public MessageSource getMessageSource(){
+		ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
+		resourceBundleMessageSource.setBasename(messageSourceBaseName);
+		return resourceBundleMessageSource;
 	}
 }
