@@ -139,11 +139,11 @@ public class UserController {
 		return activeRoles;
 	}
 	
-//	@RequestMapping(value="/download.html")
-//	public void download(@RequestParam String type,	@RequestParam String token ,HttpServletResponse response) {
-//		userService.download(type, token, response);
-//	} 
-//	
+	@RequestMapping(value="confirmation")
+	public String sendEmail(){
+		userService.sendEmailConfirmation();
+		return "redirect:/dashboard.html";
+	}
 	
 	@RequestMapping(value = "foosher1", method = RequestMethod.GET)
 	public String getPdf(Model model) {

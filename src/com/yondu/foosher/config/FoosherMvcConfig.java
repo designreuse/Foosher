@@ -5,6 +5,7 @@ package com.yondu.foosher.config;
 
 import java.beans.PropertyVetoException;
 import java.util.List;
+import java.util.Properties;
 
 import javax.sql.DataSource;
 
@@ -20,6 +21,8 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -64,7 +67,12 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 	@Value("${db.sql.dialect}") private String dbDialect;
 	@Value("${file.max.upload.size}") private Integer maxUploadSize;
 	@Value("${message.source.base.name}") private String messageSourceBaseName;
-	
+	@Value("${mail.host}") private String mailHost;
+	@Value("${mail.port}") private Integer mailPort;
+	@Value("${mail.username}") private String mailUsername;
+	@Value("${mail.password}") private String mailPassword;
+	@Value("${mail.smtp.auth}") private Boolean mailSmtpAuth;
+	@Value("${mail.smtp.starttls.enable}") private Boolean mailSmtpStarttlsEnable;
 	
 	@Override
     public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -146,4 +154,19 @@ public class FoosherMvcConfig extends WebMvcConfigurerAdapter {
 		resourceBundleMessageSource.setBasename(messageSourceBaseName);
 		return resourceBundleMessageSource;
 	}
+	
+	@Bean(name="mailSender")
+	public JavaMailSender getMailSender(){
+		JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+		mailSender.setHost(mailHost);
+		mailSender.setPort(mailPort);
+		mailSender.setUsername(mailUsername);
+		mailSender.setPassword(mailPassword);
+		Properties javaMailProperties = new Properties();
+		javaMailProperties.put("mail.smtp.auth", mailSmtpAuth);
+		javaMailProperties.put("mail.smtp.starttls.enable", mailSmtpStarttlsEnable);
+		mailSender.setJavaMailProperties(javaMailProperties);
+		return mailSender;
+	}
+	
 }

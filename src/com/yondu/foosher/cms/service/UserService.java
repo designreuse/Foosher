@@ -20,5 +20,5 @@ public interface UserService {
 	User get(Long id, boolean isInitialized);
 	void disable(Long id);
 	User findByUsername(String username);
-//	void download(String type, String token, HttpServletResponse response);
+	void sendEmailConfirmation();
 }

@@ -6,6 +6,8 @@ package com.yondu.foosher.cms.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import com.yondu.foosher.cms.dao.RoleDao;
@@ -22,6 +24,7 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired UserDao userDao;	
 	@Autowired RoleDao roleDao;
+	@Autowired MailSender mailSender;
 	
 	@Override
 	public void save(User user) {
@@ -49,6 +52,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUsername(String username) {
 		return userDao.findByUsername(username);
+	}
+
+	@Override
+	public void sendEmailConfirmation() {
+		SimpleMailMessage message = new SimpleMailMessage();
+		 
+		message.setFrom("email.ni.sean@gmail.com");
+		message.setTo("email_ni_sean@yahoo.com");
+		message.setSubject("Testing 123");
+		message.setText("Texting 123");
+		mailSender.send(message);	
 	}
 	
 }
