@@ -5,6 +5,8 @@ package com.yondu.foosher.cms.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.yondu.foosher.cms.domains.User;
 
 /**
@@ -18,4 +20,5 @@ public interface UserService {
 	User get(Long id, boolean isInitialized);
 	void disable(Long id);
 	User findByUsername(String username);
+//	void download(String type, String token, HttpServletResponse response);
 }

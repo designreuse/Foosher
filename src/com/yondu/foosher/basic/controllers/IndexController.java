@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class IndexController {
 	Logger logger = Logger.getLogger("test");
-	
-    @RequestMapping(value="/", method = RequestMethod.GET)
-	public String index(){
-		return "redirect:dashboard.html";
-	}
     
     @RequestMapping(value="/dashboard.html", method = RequestMethod.GET)
     public String dashboard(){

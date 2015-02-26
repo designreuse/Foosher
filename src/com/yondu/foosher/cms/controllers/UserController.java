@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -136,6 +137,19 @@ public class UserController {
 			roleCache.put(role.getIdString(), role);
 		}
 		return activeRoles;
+	}
+	
+//	@RequestMapping(value="/download.html")
+//	public void download(@RequestParam String type,	@RequestParam String token ,HttpServletResponse response) {
+//		userService.download(type, token, response);
+//	} 
+//	
+	
+	@RequestMapping(value = "foosher1", method = RequestMethod.GET)
+	public String getPdf(Model model) {
+		model.addAttribute("datasource", userService.list());
+		model.addAttribute("format", "pdf");
+		return "foosher1";
 	}
 	
 	@InitBinder
