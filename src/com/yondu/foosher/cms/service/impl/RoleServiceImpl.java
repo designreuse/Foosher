@@ -57,4 +57,13 @@ public class RoleServiceImpl implements RoleService {
 		return roleDao.get(id);
 	}
 
+	/* (non-Javadoc)
+	 * @see com.yondu.foosher.cms.service.RoleService#list(java.lang.String, boolean, java.lang.String, java.lang.String)
+	 */
+	@Override
+	public List<Role> list(String column, boolean isAscending,
+			String searchName, String searchCategory) {
+		return roleDao.list(column, isAscending, searchName, searchCategory);
+	}
+
 }

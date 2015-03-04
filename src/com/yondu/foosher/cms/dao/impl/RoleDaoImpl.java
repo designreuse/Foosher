@@ -5,8 +5,10 @@ package com.yondu.foosher.cms.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -85,6 +87,21 @@ public class RoleDaoImpl implements RoleDao {
 			Hibernate.initialize(initRole.getUsers());
 		}
 		return initRole;
+	}
+
+	@Override
+	@SuppressWarnings("unchecked")
+	@Transactional(readOnly=true)
+	public List<Role> list(String column, boolean isAscending, String searchName, String searchCategory) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(Role.class);
+		criteria.add(Restrictions.eq("enabled", true));
+		if(!searchName.isEmpty() && !searchCategory.isEmpty()) criteria.add(Restrictions.like(searchCategory, "%" + searchName + "%"));
+		if(isAscending){
+			criteria.addOrder(Order.asc(column));
+		} else {
+			criteria.addOrder(Order.desc(column));
+		}
+		return criteria.list();
 	}
 
 }

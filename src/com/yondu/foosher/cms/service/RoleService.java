@@ -17,5 +17,6 @@ public interface RoleService {
 	List<Role> list();
 	Role get(Long id, boolean isInitialized);
 	void disable(Long id);
+	List<Role> list(String column, boolean isAscending, String searchName, String searchCategory);
 	
 }

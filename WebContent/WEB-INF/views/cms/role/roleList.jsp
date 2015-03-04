@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <!-- Main content -->
 <section class="content">
     <div class="row">
@@ -9,14 +10,27 @@
 	                   <div class="box-header">
 	                       
 	                                            
+	                       <form:form method="GET">
 	                       <div class="box-tools">
 	                           <div class="input-group">
-	                               <input type="text" name="table_search" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
+	                               <input type="text" name="searchName" class="form-control input-sm pull-right" style="width: 150px;" placeholder="Search"/>
+	                               <input type="hidden" name="size" value="${pagination.getPageSize()}"/>
+	                               <input type="hidden" name="page" value="${pagination.getPage()}"/>
+	                               <input type="hidden" name="column" value="${column}"/>
+	                               <input type="hidden" name="ascending" value="${ascending}"/>
 	                               <div class="input-group-btn">
-            		                   		<button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+           		                   		<input type="submit" class="btn btn-sm btn-default" value="Search">
+           		                   		<select name="searchCategory">
+           		                   			<option value="description">DESCRIPTION</option>
+           		                   			<option value="code">CODE</option>
+           		                   			<option value="createdAt">Created Date</option>
+           		                   			<option value="updatedAt">Updated Date</option>
+           		                   		</select>
 	                               </div>
+	                               
 	                           </div>
-	        	</div>
+	        				</div>
+	        				</form:form>
 	                        <div class="box-tools">
 	                           <div class="input-group">
 	                               <label class="pull-right" style="width: 65px;">Display </label>
@@ -25,8 +39,10 @@
   											<a class="btn btn-sm btn-default" href="<c:url value="list.html">
 		                               			<c:param name="size" value="${loop.index * 5}"/>
 		                               			<c:param name="page" value="${pagination.getPage()}" />
-		                               			<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-								        		<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url>">
+		                               			<c:param name="column" value="${column}"/>
+								        		<c:param name="ascending" value="${ascending}"/>
+								        		<c:param name="searchName" value="${searchName}"/>
+								        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 	                               				${loop.index * 5}
                                				</a>
 										</c:forEach>
@@ -41,9 +57,10 @@
 	                               		<a href="<c:url value="list.html">
 	                               			<c:param name="size" value="${pagination.getPageSize()}"/>
 	                               			<c:param name="page" value="${pagination.getPage()}" />
-	                               			<c:param name="resort" value="true" />
 	                               			<c:param name="column" value="description"/>
-	                               			<c:param name="ascending" value="${!pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="ascending" value="${!ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 		                               		Description
 	                               		</a>
 	                               </th>
@@ -51,9 +68,10 @@
 	                               		<a href="<c:url value="list.html">
 	                               			<c:param name="size" value="${pagination.getPageSize()}"/>
 	                               			<c:param name="page" value="${pagination.getPage()}" />
-	                               			<c:param name="resort" value="true" />
 	                               			<c:param name="column" value="code"/>
-	                               			<c:param name="ascending" value="${!pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="ascending" value="${!ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 	                               			Code
 	                               		</a>
 	                               	</th>
@@ -61,9 +79,10 @@
 	                               		<a href="<c:url value="list.html">
 	                               			<c:param name="size" value="${pagination.getPageSize()}"/>
 	                               			<c:param name="page" value="${pagination.getPage()}" />
-	                               			<c:param name="resort" value="true" />
 	                               			<c:param name="column" value="createdAt"/>
-	                               			<c:param name="ascending" value="${!pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="ascending" value="${!ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 	                               			Created
 	                               		</a>
 	                               	</th>
@@ -71,9 +90,10 @@
 	                               		<a href="<c:url value="list.html">
 	                               			<c:param name="size" value="${pagination.getPageSize()}"/>
 	                               			<c:param name="page" value="${pagination.getPage()}" />
-	                               			<c:param name="resort" value="true" />
 	                               			<c:param name="column" value="updatedAt"/>
-	                               			<c:param name="ascending" value="${!pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="ascending" value="${!ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 	                               			Updated
                                			</a>
                             		</th>
@@ -107,8 +127,10 @@
 							        	<a href="<c:url value="list.html">
 							        		<c:param name="size" value="${pagination.getPageSize()}"/>
 							        		<c:param name="page" value="${pagination.getPage() - 1}"/>
-							        		<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-							        		<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url> ">
+							        		<c:param name="column" value="${column}"/>
+							        		<c:param name="ascending" value="${ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url> ">
 							        		&lt;
 							        	</a>
 					        		</li>
@@ -118,8 +140,10 @@
 							        	<a href="<c:url value="list.html">
 							        		<c:param name="size" value="${pagination.getPageSize()}"/>
 							        		<c:param name="page" value="0"/>
-							        		<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-					        				<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="column" value="${column}"/>
+							        		<c:param name="ascending" value="${ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 							        		1
 						        		</a>
 					        		</li>
@@ -143,8 +167,10 @@
 							                	<a href="<c:url value="list.html">
 							                		<c:param name="size" value="${pagination.getPageSize()}"/>
 							                		<c:param name="page" value="${i}"/>
-							                   		<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-							        				<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url>">
+							                   		<c:param name="column" value="${column}"/>
+									        		<c:param name="ascending" value="${ascending}"/>
+									        		<c:param name="searchName" value="${searchName}"/>
+									        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 							                		${i+1}
 						                		</a>
 					                		</li>
@@ -161,8 +187,10 @@
 							        	<a href="<c:url value="list.html">
 							        		<c:param name="size" value="${pagination.getPageSize()}"/>
 							        		<c:param name="page" value="${pagination.getPageCount()-1}"/>
-							        		<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-							        		<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="column" value="${column}"/>
+							        		<c:param name="ascending" value="${ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 							        		${pagination.pageCount}
 						        		</a>
 						        	</li>
@@ -172,8 +200,10 @@
 							        	<a href="<c:url value="list.html">
 							        		<c:param name="size" value="${pagination.getPageSize()}"/>
 							        		<c:param name="page" value="${pagination.getPage()+1}"/>
-							        		<c:param name="column" value="${pagination.getSort().getProperty()}"/>
-							        		<c:param name="ascending" value="${pagination.getSort().isAscending()}"/></c:url>">
+							        		<c:param name="column" value="${column}"/>
+							        		<c:param name="ascending" value="${ascending}"/>
+							        		<c:param name="searchName" value="${searchName}"/>
+							        		<c:param name="searchCategory" value="${searchCategory}"/></c:url>">
 							        		&gt;
 						        		</a>
 						        	</li>

@@ -18,4 +18,5 @@ public interface RoleDao {
 	Role get(Long id);
 	Role getInitialized(Long id);
 	void disable(Long id);
+	List<Role> list(String column, boolean isAscending, String searchName, String searchCategory);
 }

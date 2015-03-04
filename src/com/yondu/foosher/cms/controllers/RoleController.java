@@ -97,29 +97,28 @@ public class RoleController {
 		
 	}
 	
-	//USE "pagination" variable as pagedListHolder
 	@RequestMapping(value="/list.html", method=RequestMethod.GET)
 	public String list(
-			@RequestParam(value="page", defaultValue="0", required=false) int page,
-			@RequestParam(value="size", defaultValue="10", required=false) int size,
-			@RequestParam(value="resort", defaultValue="false", required=false) boolean resort,
-			@RequestParam(value="column", defaultValue="description", required=false) String column,
-			@RequestParam(value="ascending", defaultValue="true", required=false) boolean isAscending,
+			@RequestParam(value="page", defaultValue="0", required=true) int page,
+			@RequestParam(value="size", defaultValue="10", required=true) int size,
+			@RequestParam(value="resort", defaultValue="false", required=true) boolean resort,
+			@RequestParam(value="column", defaultValue="description", required=true) String column,
+			@RequestParam(value="ascending", defaultValue="true", required=true) boolean isAscending,
+			@RequestParam(value="searchName", defaultValue="", required=false) String searchName,
+			@RequestParam(value="searchCategory", defaultValue="",  required=false) String searchCategory,
 			Model model){
-		
-		// initialize PagedListHolder with our list, set current page defaulted to 0, and pass it to the view
-		PagedListHolder<Role> rolePagination = new PagedListHolder<Role>(roleService.list());
+
+		PagedListHolder<Role> rolePagination = new PagedListHolder<Role>(roleService.list(column, isAscending, searchName, searchCategory));
 		rolePagination.setPage(page);
 		rolePagination.setPageSize(size);
-		rolePagination.setSort(new MutableSortDefinition(column, true, isAscending));
-
-		if(resort) {
-			rolePagination.resort();
-		}
+		model.addAttribute("column", column);
+		model.addAttribute("ascending", isAscending);
+		model.addAttribute("searchName", searchName);
+		model.addAttribute("searchCategory", searchCategory);
 		model.addAttribute("pagination", rolePagination);
 		return "roleList";
 	}
-	
+
 	@RequestMapping(value="/disable.html", method=RequestMethod.GET)
 	public String disable(
 			@RequestParam(value="id", defaultValue="0", required=true) Long id,
