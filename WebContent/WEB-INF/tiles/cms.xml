@@ -34,6 +34,7 @@
     	<put-attribute name="title"  value="Role"/>  
    		<put-attribute name="content" value="/WEB-INF/views/cms/role/roleList.jsp" />
    </definition>
+  
    
    <definition name="uploadForm" extends="dashboardTemplate">
     	<put-attribute name="title"  value="Upload File/s"/>  

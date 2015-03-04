@@ -121,6 +121,8 @@
 		<artifactId>tiles-jsp</artifactId>
 		<version>3.0.5</version>
 	</dependency>
+		
+	
 	<dependency>
 		<groupId>com.google.code.gson</groupId>
 		<artifactId>gson</artifactId>
@@ -131,6 +133,7 @@
 		<artifactId>dynamicreports-core</artifactId>			
 		<version>3.1.3</version>
 	</dependency>
+	
     <dependency>
 	    <groupId>javax.mail</groupId>
 	    <artifactId>mail</artifactId>

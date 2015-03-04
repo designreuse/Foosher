@@ -1,3 +1,14 @@
 INSERT INTO `test`.`user` (`createdAt`, `enabled`, `updatedAt`, `address`, `city`, `contactno`, `email`, `firstname`, `lastname`, `password`, `username`, `zipcode`) VALUES ('2015-02-06 06:41:56', '1', '2015-02-06 06:41:56', 'na', 'na', 'na', 'email@anchorsteel.com', 'John', 'Doe', '21232f297a57a5a743894a0e4a801fc3', 'admin', 'na');
 INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_ADMIN', 'Administrator');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_CMS', 'Content Manager');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_BILLING', 'Billing');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_ACCOUNTANT', 'Accountant');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_CLINICAL', 'Clinical');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_MAINTENANCE', 'Maintenance');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_RECEPTION', 'Reception');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_SUPERVISOR', 'Supervisor');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_DEVELOPER', 'Developer');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_BUSINESS_ANALYST', 'Business Analyst');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_SYSTEM_ANALYST', 'System Analyst');
+INSERT INTO `test`.`role` (`enabled`, `code`, `description`) VALUES ('1', 'ROLE_ARCHITECT', 'Architect');
 INSERT INTO `test`.`user_role` (`user_id`, `role_id`) VALUES ('1', '1');

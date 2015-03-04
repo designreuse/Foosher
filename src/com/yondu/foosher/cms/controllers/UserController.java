@@ -139,13 +139,13 @@ public class UserController {
 		return activeRoles;
 	}
 	
-	@RequestMapping(value="confirmation")
+	@RequestMapping(value="confirmation.html")
 	public String sendEmail(){
 		userService.sendEmailConfirmation();
 		return "redirect:/dashboard.html";
 	}
 	
-	@RequestMapping(value = "foosher1", method = RequestMethod.GET)
+	@RequestMapping(value = "foosher1.pdf", method = RequestMethod.GET)
 	public String getPdf(Model model) {
 		model.addAttribute("datasource", userService.list());
 		model.addAttribute("format", "pdf");
