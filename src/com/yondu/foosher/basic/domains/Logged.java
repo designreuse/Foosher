@@ -17,11 +17,16 @@ import javax.persistence.TemporalType;
 @MappedSuperclass
 public abstract class Logged {
 	
+	public final static String ID = "id";
+	public final static String CREATED_AT = "createdAt";
+	public final static String UPDATED_AT = "updatedAt";
+	public final static String ENABLED = "enabled";
+	
 	protected Date createdAt;
 	protected Date updatedAt;
 	protected boolean enabled;
 	
-	@Column
+	@Column(name=ENABLED)
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -29,6 +34,7 @@ public abstract class Logged {
 		this.enabled = enabled;
 	}
 	
+	@Column(name=CREATED_AT)
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getCreatedAt() {
 		return createdAt;
@@ -37,6 +43,7 @@ public abstract class Logged {
 		this.createdAt = createdAt;
 	}
 	
+	@Column(name=UPDATED_AT)
 	@Temporal(TemporalType.TIMESTAMP)
 	public Date getUpdatedAt() {
 		return updatedAt;

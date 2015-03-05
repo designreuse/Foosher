@@ -106,7 +106,7 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value="/list.htm", method=RequestMethod.GET)
+	@RequestMapping(value="/list.html", method=RequestMethod.GET)
 	public String list(Model model){
 		model.addAttribute("users", userService.list());
 		return "userList";

@@ -22,15 +22,18 @@ import com.yondu.foosher.basic.domains.Logged;
  */
 @Entity
 public class Role extends Logged {
+	
+	public static final String DESCRIPTION = "description";
+	public static final String CODE = "code";
 
 	private List<User> users;
-	
 	private Long id;
 	private String code;
 	private String description;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name=ID)
 	public Long getId() {
 		return id;
 	}
@@ -38,7 +41,7 @@ public class Role extends Logged {
 		this.id = id;
 	}
 	
-	@Column
+	@Column(name=DESCRIPTION)
 	public String getDescription() {
 		return description;
 	}
@@ -54,7 +57,7 @@ public class Role extends Logged {
 		this.users = users;
 	}
 	
-	@Column
+	@Column(name=CODE)
 	public String getCode() {
 		return code;
 	}

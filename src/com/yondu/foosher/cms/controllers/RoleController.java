@@ -5,6 +5,7 @@ package com.yondu.foosher.cms.controllers;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.yondu.foosher.basic.dto.FoosherPagedListHolder;
 import com.yondu.foosher.cms.domains.Role;
 import com.yondu.foosher.cms.service.RoleService;
 import com.yondu.foosher.cms.validators.RoleValidator;
@@ -107,14 +109,15 @@ public class RoleController {
 			@RequestParam(value="searchName", defaultValue="", required=false) String searchName,
 			@RequestParam(value="searchCategory", defaultValue="",  required=false) String searchCategory,
 			Model model){
-
-		PagedListHolder<Role> rolePagination = new PagedListHolder<Role>(roleService.list(column, isAscending, searchName, searchCategory));
+		List<Role> roles = roleService.list(column, isAscending, searchName, searchCategory);
+		FoosherPagedListHolder<Role> rolePagination = new FoosherPagedListHolder<Role>(roles);
 		rolePagination.setPage(page);
 		rolePagination.setPageSize(size);
-		model.addAttribute("column", column);
-		model.addAttribute("ascending", isAscending);
-		model.addAttribute("searchName", searchName);
-		model.addAttribute("searchCategory", searchCategory);
+		rolePagination.setColumn(column);
+		rolePagination.setIsAscending(isAscending);
+		rolePagination.setSearchName(searchName);
+		rolePagination.setSearchCategory(searchCategory);
+		rolePagination.setCountTotal(roles.size());
 		model.addAttribute("pagination", rolePagination);
 		return "roleList";
 	}
